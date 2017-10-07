@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/assets/bower_components/Ionicons/css/ionicons.min.css">
+
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/assets/plugins/iCheck/all.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
+
+    <link rel="stylesheet" href="/assets/dist/css/components.css">
+
+    <link rel="stylesheet" href="/assets/dist/css/skins/skin-blue.min.css">
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <%- include('../layouts/header') %>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <%- include('../layouts/sidebar') %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Danh mục
+        <small>thêm mới</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li class="active"><a href="/administrator/dashboard"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active">Danh mục</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-pencil"></i> Thêm mới</h3>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <form class="form-horizontal" action="/administrator/category/insert" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Danh mục <i class="required"> *</i></label>
+                                <div class="col-lg-9">
+                                    <select data-placeholder="Chọn danh mục" class="form-control chzn-select" tabindex="5" name="selCate">
+                                        <option value="">-- Chọn danh mục --</option>
+                                        <% categories.forEach(function(category) { %>
+                                            <option style="font-weight: bold;" value="<%= category.id %>"><%= category.name %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label class="col-lg-2 control-label">Tên danh mục <i class="required"> *</i></label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="txtName" placeholder="Tên danh mục bài viết" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label class="col-lg-2 control-label">Link</label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="txtSlug" placeholder="Link thân thiện" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="text" class="col-lg-2 control-label"> </label>
+                                <div class="col-lg-9">
+                                    <input type="checkbox" class="flat-red" checked>
+                                    <span>&nbsp;&nbsp;Hiển thị</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Mô tả <i class="required"> *</i></label>
+                                <div class="col-lg-9">
+                                    <textarea name="txtDes" class="form-control" rows="7" cols="20" placeholder="Mô tả không quá 250 ký tự ..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" >
+                                <label class="col-lg-2 control-label"></label>
+                                <div class="col-lg-9 text-right">
+                                    <a href="/administrator/category/list" class="btn btn-default btn-flat"><i class="fa fa-mail-reply-all"></i> Quay lại</a>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-plus-circle"></i> Thêm mới</button>
+                                </div>
+                            </div>
+
+                        </form>
+                        <div class="form-group text-center">
+                            <p class="help-block"><i>Lưu ý: Những trường có (<i class="required"> * </i>) là những trường bắt buộc phải nhập</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</section>
+    <!-- /.content -->
+  </div>    
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <%- include('../layouts/footer') %>
+
+  <!-- Control Sidebar -->
+  <%- include('../layouts/control') %>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="/assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- iCheck 1.0.1 -->
+<script src="/assets/plugins/iCheck/icheck.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="/assets/dist/js/adminlte.min.js"></script>
+
+<script>
+    $('input[type="checkbox"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
+    })
+</script>
+
+</body>
+</html>
